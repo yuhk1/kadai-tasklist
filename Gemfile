@@ -58,3 +58,5 @@ end
 gem 'kaminari'
 
 gem 'pry-byebug', group: :development
+
+gem 'rails_12factor', group: :production
