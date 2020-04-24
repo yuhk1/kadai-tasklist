@@ -3,15 +3,15 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @tasks =Task.all
+    @tasks = current_user.tasks
   end
 
   def show
-    @task = Task.find_by(params[:id])
+    @task = Task.find_by(id: params[:id])
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
 
   def create
@@ -20,7 +20,7 @@ class TasksController < ApplicationController
       flash[:success] = '投稿しました。'
       redirect_to root_url
     else
-      #@tasks = current_user.tasks.order(id: :desc).page(params[:page])
+      @tasks = current_user.tasks.order(id: :desc).page(params[:page])
       flash.now[:danger] = '投稿に失敗しました。'
       render :new
     end
